@@ -1,5 +1,6 @@
 package in.oneton.idea.spring.assistant.plugin.misc;
 
+import com.google.common.base.Splitter;
 import com.intellij.codeInsight.completion.InsertionContext;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.util.text.StringUtil;
@@ -13,22 +14,14 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.yaml.psi.YAMLKeyValue;
 
 import java.text.BreakIterator;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import static com.intellij.codeInsight.completion.CompletionUtilCore.DUMMY_IDENTIFIER_TRIMMED;
 import static com.intellij.codeInsight.documentation.DocumentationManager.createHyperlink;
-import static com.intellij.openapi.util.text.StringUtil.containsChar;
-import static com.intellij.openapi.util.text.StringUtil.endsWithChar;
-import static com.intellij.openapi.util.text.StringUtil.isNotEmpty;
-import static com.intellij.openapi.util.text.StringUtil.replace;
+import static com.intellij.openapi.util.text.StringUtil.*;
 import static java.text.BreakIterator.getSentenceInstance;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
@@ -227,6 +220,16 @@ public class GenericUtil {
   public static Optional<String> getKeyNameOfObject(final PsiElement psiElement) {
     return Optional.of(psiElement).filter(el -> el instanceof YAMLKeyValue)
         .map(YAMLKeyValue.class::cast).map(YAMLKeyValue::getName);
+  }
+
+  public static List<String> getAncestralKey(String elementVal) {
+    String ancestralStr = elementVal.replaceAll("\\[\\d+\\]", "");
+    List<String> split = Splitter.on(".").splitToList(ancestralStr);
+    if (split.size() == 1) {
+      return null;
+    }
+    List<String> ancestralList = split.subList(0, split.size() - 1);
+    return ancestralList;
   }
 
 }

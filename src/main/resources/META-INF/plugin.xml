@@ -1,14 +1,31 @@
-<idea-plugin url="https://github.com/1tontech/intellij-spring-assistant">
+<idea-plugin url="https://github.com/vandyzhou/intellij-spring-assistant">
 
-    <id>in.1ton.idea.spring.assistant.plugin</id>
-    <name>Spring Assistant</name>
+    <id>mdp.idea.spring.assistant.plugin</id>
+    <name>MDP Spring Assistant</name>
     <!-- Will be auto populated by plugin -->
-    <version/>
-    <vendor email="dev@1ton.in" url="http://1ton.in/">Development Team @ 1Ton Technologies</vendor>
+    <version>1.0.0</version>
+    <vendor email="NIB.mdp@meituan.com" url="https://docs.sankuai.com/dp/hbar/mdp-docs/master/">Development Team @ MDP</vendor>
 
     <!-- Will be auto populated by plugin -->
-    <description/>
-    <change-notes/>
+    <description>
+        <![CDATA[
+            <h3>MDP Spring配置文件自动提示插件：</h3>
+            <p>
+                * 支持非application.properties或者application.yaml配置文件；
+                * 支持（properties/yaml）格式；
+            </p>
+        ]]>]
+    </description>
+
+    <change-notes>
+        <![CDATA[
+            <h3>Release Note 1.0.0</h3>
+            <p>
+                1. 支持properties文件格式；
+                2. 支持yaml文件格式；
+            </p>
+        ]]>]
+    </change-notes>
 
     <idea-version since-build="172"/>
 
@@ -28,14 +45,20 @@
         <completion.contributor language="yaml"
                                 implementationClass="in.oneton.idea.spring.assistant.plugin.suggestion.completion.YamlCompletionContributor"/>
 
-        <!--<completion.contributor language="Properties"-->
-        <!--implementationClass="in.oneton.idea.spring.assistant.plugin.suggestion.completion.PropertiesCompletionContributor"/>-->
+        <completion.contributor language="Properties"
+        implementationClass="in.oneton.idea.spring.assistant.plugin.suggestion.completion.PropertiesCompletionContributor"/>
 
-        <documentationProvider
-                implementation="in.oneton.idea.spring.assistant.plugin.suggestion.completion.YamlDocumentationProvider"/>
+        <lang.documentationProvider language="yaml"
+                implementationClass="in.oneton.idea.spring.assistant.plugin.suggestion.completion.YamlDocumentationProvider"/>
 
-        <!--<documentationProvider-->
-        <!--implementation="in.oneton.idea.spring.assistant.plugin.suggestion.completion.PropertiesDocumentationProvider"/>-->
+        <lang.documentationProvider id="properties" language="Properties"
+                implementationClass="in.oneton.idea.spring.assistant.plugin.suggestion.completion.PropertiesDocumentationProvider"/>
+
+        <psi.referenceContributor language="Properties"
+                implementation="in.oneton.idea.spring.assistant.plugin.suggestion.completion.PropertiesReferenceContributor"/>
+
+<!--        <lang.findUsagesProvider language="Properties" order="first"-->
+<!--                                 implementationClass="in.oneton.idea.spring.assistant.plugin.suggestion.completion.CustomPropertiesFindUsagesProvider"/>-->
 
         <!--<annotator-->
         <!--implementationClass="DuplicateKeyAnnotator"-->

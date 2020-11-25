@@ -2,7 +2,7 @@ import com.vladsch.flexmark.ast.Document
 import com.vladsch.flexmark.html.HtmlRenderer
 import com.vladsch.flexmark.parser.Parser
 
-version '0.12.0'
+version '0.2.0'
 
 buildscript {
     apply plugin: 'groovy'
@@ -67,7 +67,7 @@ String changeLogAsHtml() {
 
 intellij {
     version 'IC-2017.2'
-    plugins = ['properties', 'yaml', 'maven', 'gradle', 'Lombook Plugin:0.16-2017.2']
+    plugins = ['properties', 'yaml', 'maven', 'gradle']
     downloadSources true
     patchPluginXml {
         pluginDescription readmeXmlAsHtml()

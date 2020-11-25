@@ -74,6 +74,7 @@ public class InitializrModuleBuilder extends ModuleBuilder {
     doAddContentEntry(modifiableRootModel);
   }
 
+  @Override
   @Nullable
   public ModuleWizardStep modifySettingsStep(@NotNull SettingsStep settingsStep) {
     JTextField moduleNameField = settingsStep.getModuleNameField();
@@ -84,12 +85,14 @@ public class InitializrModuleBuilder extends ModuleBuilder {
     return super.modifySettingsStep(settingsStep);
   }
 
+  @Override
   public ModuleWizardStep[] createWizardSteps(@NotNull WizardContext wizardContext,
-      @NotNull ModulesProvider modulesProvider) {
+                                              @NotNull ModulesProvider modulesProvider) {
     return new ModuleWizardStep[] {new ProjectDetailsStep(this, wizardContext),
         new DependencySelectionStep(this)};
   }
 
+  @Override
   @Nullable
   public ModuleWizardStep getCustomOptionsStep(WizardContext context, Disposable parentDisposable) {
     return new ServerSelectionStep(this);
