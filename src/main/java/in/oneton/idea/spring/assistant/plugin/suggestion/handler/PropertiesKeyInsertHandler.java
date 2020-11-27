@@ -112,7 +112,7 @@ public class PropertiesKeyInsertHandler implements InsertHandler<LookupElement> 
         if (nodeType == UNDEFINED || nodeType == UNKNOWN_CLASS) {
             return CARET;
         } else if (nodeType.representsLeaf()) {
-            return "= " + CARET;
+            return "=" + CARET;
         } else if (nodeType.representsArrayOrCollection()) {
             return "[" + CARET + "]";
         } else if (isArray){

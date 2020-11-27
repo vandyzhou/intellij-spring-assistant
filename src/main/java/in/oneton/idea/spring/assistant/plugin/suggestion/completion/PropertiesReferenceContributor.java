@@ -13,6 +13,7 @@ import com.intellij.util.ProcessingContext;
 import in.oneton.idea.spring.assistant.plugin.misc.GenericUtil;
 import in.oneton.idea.spring.assistant.plugin.suggestion.SuggestionNode;
 import in.oneton.idea.spring.assistant.plugin.suggestion.service.SuggestionService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -70,8 +71,14 @@ public class PropertiesReferenceContributor extends PsiReferenceContributor {
 
             Module module = findModule(myElement);
 
+            List<String> ancestralKey = GenericUtil.getAncestralKey(value);
+
+            if (CollectionUtils.isEmpty(ancestralKey)) {
+                return new ResolveResult[0];
+            }
+
             List<SuggestionNode> matchedNodesFromRootTillLeaf =
-                    service.findMatchedNodesRootTillEnd(project, module, GenericUtil.getAncestralKey(value));
+                    service.findMatchedNodesRootTillEnd(project, module, ancestralKey);
 
             if (matchedNodesFromRootTillLeaf != null) {
 
